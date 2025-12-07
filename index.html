@@ -1,443 +1,993 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta property="og:title" content="Battle of Brains">
-    <meta property="og:description" content="Can you survive 100 levels of brain teasers?">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <meta property="og:title" content="Battle of Brains" />
+    <meta
+      property="og:description"
+      content="Can you survive 100 levels? Swap and trash your way to victory."
+    />
+    <meta
+      property="og:image"
+      content="https://via.placeholder.com/1200x630/2f3542/f1c40f?text=Battle+of+Brains+⚡"
+    />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232f3542'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='central' text-anchor='middle' font-size='70'%3E⚡%3C/text%3E%3C/svg%3E"
+    />
+
     <title>Battle of Brains</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        /* [CORE STYLES] */
-        :root { --left-color: #ff6b6b; --right-color: #4ecdc4; --bg-color: #2f3542; --text-color: #ffffff; --gold: #f1c40f; }
-        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-color); height: 100dvh; overflow: hidden; display: flex; flex-direction: column; touch-action: manipulation; }
-        
-        .timer-container { width: 100%; height: 10px; background: var(--bg-color); position: fixed; top: 0; z-index: 100; }
-        .timer-bar { height: 100%; width: 100%; background: linear-gradient(90deg, #feca57, #ff6b6b); transition: width 0.1s linear; }
-        
-        /* HUD - Mobile Optimized */
-        .hud { 
-            position: absolute; top: 20px; width: 100%; 
-            text-align: center; z-index: 50; pointer-events: none; 
-            display: flex; flex-direction: column; align-items: center; gap: 5px; 
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5); padding: 0 10px; 
-        }
-        .top-row { display: flex; justify-content: center; gap: 15px; align-items: center; width: 100%; }
-        .hearts-container { font-size: 1.2rem; letter-spacing: 2px; filter: drop-shadow(0 0 5px rgba(255,0,0,0.5)); }
-        
-        .badge { background: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 15px; font-size: 0.8rem; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); }
-        .cat-badge { background: #ffa502; color: #000; font-weight: 800; }
-        
-        /* Responsive Question Text */
-        .question-text { 
-            font-size: 1.8rem; font-weight: 700; margin-top: 10px; line-height: 1.2; 
-            animation: popIn 0.3s ease; padding: 0 10px;
-        }
+      /* [CORE STYLES] */
+      :root {
+        --left-color: #ff6b6b;
+        --right-color: #4ecdc4;
+        --bg-color: #2f3542;
+        --text-color: #ffffff;
+        --gold: #f1c40f;
+      }
+      * {
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        height: 100dvh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        touch-action: manipulation;
+      }
 
-        /* GAME AREA - Mobile First (Column) */
-        .game-area { display: flex; width: 100%; height: 100%; position: relative; flex-direction: column; }
+      .timer-container {
+        width: 100%;
+        height: 10px;
+        background: var(--bg-color);
+        position: fixed;
+        top: 0;
+        z-index: 100;
+      }
+      .timer-bar {
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(90deg, #feca57, #ff6b6b);
+        transition: width 0.1s linear;
+      }
 
-        /* Desktop Override (Row) */
-        @media (min-width: 768px) {
-            .game-area { flex-direction: row; }
-            .question-text { font-size: 2.5rem; margin-top: 20px; }
-            .hearts-container { font-size: 1.5rem; }
-            .badge { font-size: 0.9rem; padding: 5px 15px; }
-        }
+      /* HUD - Mobile Optimized */
+      .hud {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        text-align: center;
+        z-index: 50;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        padding: 0 10px;
+      }
+      .top-row {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        align-items: center;
+        width: 100%;
+      }
+      .hearts-container {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
+      }
 
-        .option { 
-            flex: 1; display: flex; justify-content: center; align-items: center; 
-            font-size: 2rem; font-weight: 900; cursor: pointer; position: relative; 
-            text-align: center; padding: 20px; overflow: hidden; word-break: break-word; transition: all 0.1s; 
-        }
-        .option:active { filter: brightness(0.9); transform: scale(0.98); }
-        
-        .vs-badge { 
-            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); 
-            background: #fff; color: #333; width: 60px; height: 60px; border-radius: 50%; 
-            display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 1.2rem; 
-            z-index: 20; box-shadow: 0 0 20px rgba(0,0,0,0.5); pointer-events: none; 
-        }
-        
-        @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-10px); } 50% { transform: translateX(10px); } 75% { transform: translateX(-10px); } 100% { transform: translateX(0); } }
-        .shake-screen { animation: shake 0.4s ease-in-out; }
+      .badge {
+        background: rgba(0, 0, 0, 0.6);
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .cat-badge {
+        background: #ffa502;
+        color: #000;
+        font-weight: 800;
+      }
 
-        /* --- BACKGROUND ANIMATION LAYER --- */
-        #emoji-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 201; /* Above Overlay BG Gradient, Below Text */
-            pointer-events: none; overflow: hidden;
-            transition: opacity 0.5s ease; opacity: 1;
-        }
-        .floating-emoji {
-            position: absolute; bottom: -100px; font-size: 2rem; opacity: 0.3; 
-            animation: floatUp linear infinite; text-shadow: 0 0 10px rgba(255,255,255,0.3);
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.3; } 90% { opacity: 0.3; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-        }
+      /* Responsive Question Text */
+      .question-text {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-top: 10px;
+        line-height: 1.2;
+        animation: popIn 0.3s ease;
+        padding: 0 10px;
+      }
 
-        /* OVERLAYS */
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(-45deg, #1e272e, #c0392b, #1e272e, #16a085);
-            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            z-index: 200; text-align: center; padding: 20px; 
+      /* GAME AREA - Mobile First (Column) */
+      .game-area {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        flex-direction: column;
+      }
+
+      /* Desktop Override (Row) */
+      @media (min-width: 768px) {
+        .game-area {
+          flex-direction: row;
         }
-        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        .hidden { display: none !important; }
-        
-        /* Ensure Text/Buttons are ABOVE the emojis (z-201) */
-        .overlay h1, .overlay h2, .overlay p, .overlay button, .leaderboard-container, .social-row, .creator-credit { z-index: 205; position: relative; }
-        .overlay h1 { font-size: 3rem; margin: 0; color: #ffffff; line-height: 1; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .overlay h2 { font-size: 1.2rem; color: #eee; font-weight: 300; margin-top: 10px; }
-
-        /* CREATOR CREDIT STYLE */
-        .creator-credit {
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.6);
-            font-weight: 300;
-            letter-spacing: 1px;
+        .question-text {
+          font-size: 2.5rem;
+          margin-top: 20px;
         }
-        .creator-credit span { font-weight: 700; color: #4ecdc4; }
+        .hearts-container {
+          font-size: 1.5rem;
+        }
+        .badge {
+          font-size: 0.9rem;
+          padding: 5px 15px;
+        }
+      }
 
-        /* BUTTONS */
-        button.btn-main { margin-top: 20px; padding: 15px 40px; font-size: 1.2rem; font-weight: 900; border: none; border-radius: 60px; background: white; color: #2f3542; cursor: pointer; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); min-width: 200px; transition: transform 0.1s; }
-        button.btn-main:active { transform: scale(0.95); }
-        button.btn-sec { background: rgba(0,0,0,0.3); color: white; border: 2px solid rgba(255,255,255,0.3); box-shadow: none; margin-top: 10px; font-size: 0.9rem; padding: 10px 30px; }
-        
-        /* SOCIAL */
-        .social-row { display: flex; gap: 15px; margin-top: 20px; }
-        .btn-social { width: 50px; height: 50px; border-radius: 50%; border: none; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .btn-wa { background-color: #25D366; } .btn-tw { background-color: #1DA1F2; } .btn-cp { background-color: #7f8c8d; }
+      .option {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        font-weight: 900;
+        cursor: pointer;
+        position: relative;
+        text-align: center;
+        padding: 20px;
+        overflow: hidden;
+        word-break: break-word;
+        transition: all 0.1s;
+      }
+      .option:active {
+        filter: brightness(0.9);
+        transform: scale(0.98);
+      }
 
-        .leaderboard-container { width: 100%; max-width: 400px; background: rgba(0,0,0,0.4); border-radius: 15px; padding: 15px; margin-top: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-        table { width: 100%; border-collapse: collapse; color: white; font-size: 1rem; }
-        th { text-align: left; border-bottom: 1px solid rgba(255,255,255,0.2); padding: 8px; color: #feca57; }
-        td { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 8px; }
-        td.score-val { text-align: right; font-weight: bold; color: #4ecdc4; }
-        
-        .kbd-hint { position: absolute; bottom: 20px; font-size: 0.8rem; opacity: 0.5; display: none; width: 100%; text-align: center; pointer-events: none;}
-        @media (min-width: 768px) { .kbd-hint { display: block; } .overlay h1 { font-size: 5rem; } }
+      .vs-badge {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        color: #333;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 900;
+        font-size: 1.2rem;
+        z-index: 20;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+      }
+
+      @keyframes popIn {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @keyframes shake {
+        0% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-10px);
+        }
+        50% {
+          transform: translateX(10px);
+        }
+        75% {
+          transform: translateX(-10px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+      .shake-screen {
+        animation: shake 0.4s ease-in-out;
+      }
+
+      /* --- BACKGROUND ANIMATION LAYER --- */
+      #emoji-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 201; /* Above Overlay BG Gradient, Below Text */
+        pointer-events: none;
+        overflow: hidden;
+        transition: opacity 0.5s ease;
+        opacity: 1;
+      }
+      .floating-emoji {
+        position: absolute;
+        bottom: -100px;
+        font-size: 2rem;
+        opacity: 0.3;
+        animation: floatUp linear infinite;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.3;
+        }
+        90% {
+          opacity: 0.3;
+        }
+        100% {
+          transform: translateY(-110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* OVERLAYS */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(-45deg, #1e272e, #c0392b, #1e272e, #16a085);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 200;
+        text-align: center;
+        padding: 20px;
+      }
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      /* Ensure Text/Buttons are ABOVE the emojis (z-201) */
+      .overlay h1,
+      .overlay h2,
+      .overlay p,
+      .overlay button,
+      .leaderboard-container,
+      .social-row,
+      .creator-credit {
+        z-index: 205;
+        position: relative;
+      }
+      .overlay h1 {
+        font-size: 3rem;
+        margin: 0;
+        color: #ffffff;
+        line-height: 1;
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      }
+      .overlay h2 {
+        font-size: 1.2rem;
+        color: #eee;
+        font-weight: 300;
+        margin-top: 10px;
+      }
+
+      /* CREATOR CREDIT STYLE */
+      .creator-credit {
+        margin-top: 40px;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 300;
+        letter-spacing: 1px;
+      }
+      .creator-credit a {
+        font-weight: 700;
+        color: #4ecdc4;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      .creator-credit a:hover {
+        color: #ff6b6b;
+      }
+
+      /* BUTTONS */
+      button.btn-main {
+        margin-top: 20px;
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        font-weight: 900;
+        border: none;
+        border-radius: 60px;
+        background: white;
+        color: #2f3542;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        min-width: 200px;
+        transition: transform 0.1s;
+      }
+      button.btn-main:active {
+        transform: scale(0.95);
+      }
+      button.btn-sec {
+        background: rgba(0, 0, 0, 0.3);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        box-shadow: none;
+        margin-top: 10px;
+        font-size: 0.9rem;
+        padding: 10px 30px;
+      }
+
+      /* SOCIAL */
+      .social-row {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+      .btn-social {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+        color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .btn-wa {
+        background-color: #25d366;
+      }
+      .btn-tw {
+        background-color: #1da1f2;
+      }
+      .btn-cp {
+        background-color: #7f8c8d;
+      }
+
+      .leaderboard-container {
+        width: 100%;
+        max-width: 400px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 15px;
+        padding: 15px;
+        margin-top: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        color: white;
+        font-size: 1rem;
+      }
+      th {
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 8px;
+        color: #feca57;
+      }
+      td {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 8px;
+      }
+      td.score-val {
+        text-align: right;
+        font-weight: bold;
+        color: #4ecdc4;
+      }
+
+      .kbd-hint {
+        position: absolute;
+        bottom: 20px;
+        font-size: 0.8rem;
+        opacity: 0.5;
+        display: none;
+        width: 100%;
+        text-align: center;
+        pointer-events: none;
+      }
+      @media (min-width: 768px) {
+        .kbd-hint {
+          display: block;
+        }
+        .overlay h1 {
+          font-size: 5rem;
+        }
+      }
     </style>
-</head>
-<body>
-
-    <div class="timer-container"><div class="timer-bar" id="timer-bar"></div></div>
+  </head>
+  <body>
+    <div class="timer-container">
+      <div class="timer-bar" id="timer-bar"></div>
+    </div>
 
     <div id="emoji-bg"></div>
 
     <div class="hud">
-        <div class="top-row">
-            <span class="badge" id="level-indicator">Lvl 1</span>
-            <div class="hearts-container" id="hearts">❤️❤️❤️</div>
-            <span class="badge cat-badge" id="cat-indicator">MATH</span>
-        </div>
-        <div class="question-text" id="question">Loading...</div>
+      <div class="top-row">
+        <span class="badge" id="level-indicator">Lvl 1</span>
+        <div class="hearts-container" id="hearts">❤️❤️❤️</div>
+        <span class="badge cat-badge" id="cat-indicator">MATH</span>
+      </div>
+      <div class="question-text" id="question">Loading...</div>
     </div>
 
     <div class="vs-badge">VS</div>
 
     <div class="game-area" id="game-stage">
-        <div id="left-opt" class="option" style="background-color: var(--left-color);" onclick="handleInput(1)">A</div>
-        <div id="right-opt" class="option" style="background-color: var(--right-color);" onclick="handleInput(2)">B</div>
-        <div class="kbd-hint">Use ⬅️ Arrow Keys ➡️</div>
+      <div
+        id="left-opt"
+        class="option"
+        style="background-color: var(--left-color)"
+        onclick="handleInput(1)"
+      >
+        A
+      </div>
+      <div
+        id="right-opt"
+        class="option"
+        style="background-color: var(--right-color)"
+        onclick="handleInput(2)"
+      >
+        B
+      </div>
+      <div class="kbd-hint">Use ⬅️ Arrow Keys ➡️</div>
     </div>
 
     <div id="start-screen" class="overlay">
-        <h1>Battle of Brains</h1>
-        <h2>3 LIVES • 10 SECONDS</h2>
-        <button class="btn-main" onclick="startGame()">PLAY GAME</button>
-        <button class="btn-main btn-sec" onclick="showLeaderboard('start')">LEADERBOARD</button>
-        
-        <div class="creator-credit">Made by Narayan <span>@bruhmask</span></div>
+      <h1>Battle of Brains</h1>
+      <h2>3 LIVES • 10 SECONDS</h2>
+      <button class="btn-main" onclick="startGame()">PLAY GAME</button>
+      <button class="btn-main btn-sec" onclick="showLeaderboard('start')">
+        LEADERBOARD
+      </button>
+      <div class="creator-credit">
+        Made by Narayan
+        <a href="https://www.instagram.com/bruh_mask/" target="_blank"
+          >@bruhmask</a
+        >
+      </div>
     </div>
 
     <div id="game-over" class="overlay hidden">
-        <h1>GAME OVER</h1>
-        <p id="death-reason" style="font-size: 1.2rem; color: #eee; font-weight:bold;">Out of Lives</p>
-        <p>Score: <span id="final-score" style="color:#fff; font-weight:bold;">0</span></p>
-        
-        <button class="btn-main" onclick="resetGame()">RETRY</button>
-        
-        <div class="social-row">
-            <button class="btn-social btn-wa" onclick="shareSocial('wa')" title="WhatsApp">💬</button>
-            <button class="btn-social btn-tw" onclick="shareSocial('tw')" title="X / Twitter">🐦</button>
-            <button class="btn-social btn-cp" onclick="shareSocial('cp')" title="Copy Link">📋</button>
-        </div>
+      <h1>GAME OVER</h1>
+      <p
+        id="death-reason"
+        style="font-size: 1.2rem; color: #eee; font-weight: bold"
+      >
+        Out of Lives
+      </p>
+      <p>
+        Score:
+        <span id="final-score" style="color: #fff; font-weight: bold">0</span>
+      </p>
 
-        <button class="btn-main btn-sec" onclick="showLeaderboard('over')">LEADERBOARD</button>
-        <div class="creator-credit">Made by Narayan <span>@bruhmask</span></div>
+      <button class="btn-main" onclick="resetGame()">RETRY</button>
+
+      <div class="social-row">
+        <button
+          class="btn-social btn-wa"
+          onclick="shareSocial('wa')"
+          title="WhatsApp"
+        >
+          💬
+        </button>
+        <button
+          class="btn-social btn-tw"
+          onclick="shareSocial('tw')"
+          title="X / Twitter"
+        >
+          🐦
+        </button>
+        <button
+          class="btn-social btn-cp"
+          onclick="shareSocial('cp')"
+          title="Copy Link"
+        >
+          📋
+        </button>
+      </div>
+
+      <button class="btn-main btn-sec" onclick="showLeaderboard('over')">
+        LEADERBOARD
+      </button>
+      <div class="creator-credit">
+        Made by Narayan
+        <a href="https://www.instagram.com/bruhmask/" target="_blank"
+          >@bruhmask</a
+        >
+      </div>
     </div>
 
     <div id="victory" class="overlay hidden">
-        <h1 style="color: #f1c40f">VICTORY!</h1>
-        <p>You conquered all 100 levels.</p>
-        <button class="btn-main" onclick="resetGame()">PLAY AGAIN</button>
-        <div class="social-row">
-            <button class="btn-social btn-wa" onclick="shareSocial('wa')">💬</button>
-            <button class="btn-social btn-tw" onclick="shareSocial('tw')">🐦</button>
-            <button class="btn-social btn-cp" onclick="shareSocial('cp')">📋</button>
-        </div>
-        <div class="creator-credit">Made by Narayan <span>@bruhmask</span></div>
+      <h1 style="color: #f1c40f">VICTORY!</h1>
+      <p>You conquered all 100 levels.</p>
+      <button class="btn-main" onclick="resetGame()">PLAY AGAIN</button>
+      <div class="social-row">
+        <button class="btn-social btn-wa" onclick="shareSocial('wa')">
+          💬
+        </button>
+        <button class="btn-social btn-tw" onclick="shareSocial('tw')">
+          🐦
+        </button>
+        <button class="btn-social btn-cp" onclick="shareSocial('cp')">
+          📋
+        </button>
+      </div>
+      <div class="creator-credit">
+        Made by Narayan
+        <a href="https://www.instagram.com/bruhmask/" target="_blank"
+          >@bruhmask</a
+        >
+      </div>
     </div>
 
     <div id="leaderboard-screen" class="overlay hidden">
-        <h2 style="color: #feca57; font-size: 1.5rem;">HALL OF FAME</h2>
-        <div class="leaderboard-container">
-            <tbody id="score-body"></tbody>
-        </div>
-        <button class="btn-main" onclick="closeLeaderboard()">BACK</button>
+      <h2 style="color: #feca57; font-size: 1.5rem">HALL OF FAME</h2>
+      <div class="leaderboard-container">
+        <tbody id="score-body"></tbody>
+      </div>
+      <button class="btn-main" onclick="closeLeaderboard()">BACK</button>
     </div>
 
-<script>
-    const TIME_LIMIT_MS = 10000;
-    const MAX_LIVES = 3;
-    const CAT_ICONS = { 'MATH': '🧮', 'GEO': '🌍', 'FILM': '🎬', 'SPORTS': '⚽', 'POLITICS': '🏛️' };
+    <script>
+      const TIME_LIMIT_MS = 10000;
+      const MAX_LIVES = 3;
+      const CAT_ICONS = {
+        MATH: "🧮",
+        GEO: "🌍",
+        FILM: "🎬",
+        SPORTS: "⚽",
+        POLITICS: "🏛️",
+        ANIME: "⛩️",
+      };
 
-    // --- BACKGROUND ANIMATION LOGIC ---
-    function initBackground() {
-        const bg = document.getElementById('emoji-bg');
-        const emojis = ['⚽', '🎬', '🌍', '🧮', '🏛️', '🏆', '⚡', '🧠'];
-        for(let i=0; i<25; i++) {
-            const el = document.createElement('div');
-            el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            el.className = 'floating-emoji';
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDuration = (Math.random() * 10 + 15) + 's';
-            el.style.animationDelay = (Math.random() * 10) + 's';
-            el.style.fontSize = (Math.random() * 2 + 1.5) + 'rem'; 
-            bg.appendChild(el);
+      // --- BACKGROUND ANIMATION LOGIC ---
+      function initBackground() {
+        const bg = document.getElementById("emoji-bg");
+        const emojis = ["⚽", "🎬", "🌍", "🧮", "🏛️", "🏆", "⚡", "🧠"];
+        for (let i = 0; i < 25; i++) {
+          const el = document.createElement("div");
+          el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+          el.className = "floating-emoji";
+          el.style.left = Math.random() * 100 + "vw";
+          el.style.animationDuration = Math.random() * 10 + 15 + "s";
+          el.style.animationDelay = Math.random() * 10 + "s";
+          el.style.fontSize = Math.random() * 2 + 1.5 + "rem";
+          bg.appendChild(el);
         }
-    }
-    initBackground();
+      }
+      initBackground();
 
-    function toggleEmojis(show) {
-        document.getElementById('emoji-bg').style.opacity = show ? '1' : '0';
-    }
+      function toggleEmojis(show) {
+        document.getElementById("emoji-bg").style.opacity = show ? "1" : "0";
+      }
 
-    let lives = MAX_LIVES;
-    let gameQueue = [];
-    let currentIdx = 0;
-    let timerInterval = null;
-    let timeLeft = TIME_LIMIT_MS;
-    let isGameRunning = false;
-    let previousScreen = null;
+      let lives = MAX_LIVES;
+      let gameQueue = [];
+      let currentIdx = 0;
+      let timerInterval = null;
+      let timeLeft = TIME_LIMIT_MS;
+      let isGameRunning = false;
+      let previousScreen = null;
 
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const SoundFX = {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const SoundFX = {
         playTone: (freq, type, dur) => {
-            if(audioCtx.state === 'suspended') audioCtx.resume();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = type; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-            osc.connect(gain); gain.connect(audioCtx.destination);
-            osc.start(); gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + dur);
-            osc.stop(audioCtx.currentTime + dur);
+          if (audioCtx.state === "suspended") audioCtx.resume();
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          gain.gain.exponentialRampToValueAtTime(
+            0.00001,
+            audioCtx.currentTime + dur
+          );
+          osc.stop(audioCtx.currentTime + dur);
         },
-        correct: () => { SoundFX.playTone(600, 'sine', 0.1); setTimeout(()=>SoundFX.playTone(900,'sine',0.1), 50); },
-        wrong: () => { SoundFX.playTone(150, 'sawtooth', 0.3); }, 
-        tick: () => { SoundFX.playTone(800, 'triangle', 0.05); }
-    };
+        correct: () => {
+          SoundFX.playTone(600, "sine", 0.1);
+          setTimeout(() => SoundFX.playTone(900, "sine", 0.1), 50);
+        },
+        wrong: () => {
+          SoundFX.playTone(150, "sawtooth", 0.3);
+        },
+        tick: () => {
+          SoundFX.playTone(800, "triangle", 0.05);
+        },
+      };
 
-    const els = {
-        q: document.getElementById('question'),
-        l: document.getElementById('left-opt'),
-        r: document.getElementById('right-opt'),
-        time: document.getElementById('timer-bar'),
-        lvl: document.getElementById('level-indicator'),
-        cat: document.getElementById('cat-indicator'),
-        hearts: document.getElementById('hearts'),
-        stage: document.getElementById('game-stage'),
-        screens: { start: document.getElementById('start-screen'), over: document.getElementById('game-over'), leader: document.getElementById('leaderboard-screen'), win: document.getElementById('victory') },
-        reason: document.getElementById('death-reason'),
-        score: document.getElementById('final-score'),
-    };
+      const els = {
+        q: document.getElementById("question"),
+        l: document.getElementById("left-opt"),
+        r: document.getElementById("right-opt"),
+        time: document.getElementById("timer-bar"),
+        lvl: document.getElementById("level-indicator"),
+        cat: document.getElementById("cat-indicator"),
+        hearts: document.getElementById("hearts"),
+        stage: document.getElementById("game-stage"),
+        screens: {
+          start: document.getElementById("start-screen"),
+          over: document.getElementById("game-over"),
+          leader: document.getElementById("leaderboard-screen"),
+          win: document.getElementById("victory"),
+        },
+        reason: document.getElementById("death-reason"),
+        score: document.getElementById("final-score"),
+      };
 
-    function prepareData(arr, catName) { return arr.map(item => ({ cat: catName, q: item[0], o1: item[1], o2: item[2], ans: item[3] })); }
-    
-    const CAT_POLITICS = [["First US President", "Lincoln", "Washington", 2], ["UK Leader", "President", "PM", 2], ["Russian Capital", "Moscow", "St Petersburg", 1]];
-    const CAT_GEO = [["Capital of Japan", "Tokyo", "Kyoto", 1], ["Largest Ocean", "Atlantic", "Pacific", 2], ["Eiffel Tower", "London", "Paris", 2]];
-    const CAT_FILM = [["Iron Man", "Downey Jr", "Brad Pitt", 1], ["Titanic Director", "Spielberg", "Cameron", 2], ["Harry Potter Author", "JK Rowling", "Tolkien", 1]];
-    const CAT_SPORTS = [["Soccer uses...", "Feet", "Hands", 1], ["NBA Sport", "Basketball", "Baseball", 1], ["Lionel Messi", "Tennis", "Football", 2]];
-    const CAT_MATH_STATIC = [["2 + 2 =", "4", "22", 1], ["50% of 100", "20", "50", 2], ["Angles in Triangle", "180°", "360°", 1]];
+      function prepareData(arr, catName) {
+        return arr.map((item) => ({
+          cat: catName,
+          q: item[0],
+          o1: item[1],
+          o2: item[2],
+          ans: item[3],
+        }));
+      }
 
-    function generateMath() {
+      const CAT_POLITICS = [
+        ["US 2024 Winner", "Trump", "Harris", 1],
+        ["Elon Musk leads...", "D.O.G.E", "N.A.S.A", 1],
+        ["'Brat Summer' icon", "Kamala", "Hillary", 1],
+        ["Joe Biden...", "Won", "Dropped Out", 2],
+        ["Argentina's 'Lion'", "Milei", "Messi", 1],
+        ["UK Ruling Party '24", "Labour", "Tories", 1],
+        ["Trump's 2024 VP", "JD Vance", "Mike Pence", 1],
+        ["India's PM (3rd Term)", "Modi", "Gandhi", 1],
+        ["Mexico's 1st Female Pres", "Sheinbaum", "Shakira", 1],
+        ["El Salvador's Leader", "Bukele", "Escobar", 1],
+        ["France's Leader", "Macron", "Napoleon", 1],
+        ["RFK Jr. endorsed...", "Trump", "Biden", 1],
+        ["Russia's President", "Putin", "Rasputin", 1],
+        ["Canada's PM", "Trudeau", "Drake", 1],
+        ["North Korea Leader", "Kim Jong Un", "BTS", 1],
+      ];
+      const CAT_GEO = [
+        ["2024 Olympics City", "Paris", "London", 1],
+        ["Saudi's Sci-Fi City", "The Line", "The Box", 1],
+        ["Venice is famous for...", "Canals", "Cars", 1],
+        ["Most People (2025)", "India", "China", 1],
+        ["Burj Khalifa is in...", "Dubai", "Saudi", 1],
+        ["Bali is in...", "Indonesia", "Thailand", 1],
+        ["Italy looks like a...", "Boot", "Ball", 1],
+        ["Pyramids are in...", "Egypt", "Mexico", 1],
+        ["The 'Big Apple'", "New York", "LA", 1],
+        ["Mount Fuji is in...", "Japan", "China", 1],
+        ["Eiffel Tower home", "Paris", "Berlin", 1],
+        ["Largest Ocean", "Pacific", "Atlantic", 1],
+        ["Sahara is a...", "Desert", "Forest", 1],
+        ["Las Vegas is in...", "Nevada", "Texas", 1],
+        ["Antarctica is...", "Ice", "Sand", 1],
+      ];
+      const CAT_FILM = [
+        ["Deadpool teams up with...", "Wolverine", "Batman", 1],
+        ["Barbie's boyfriend", "Ken", "Allan", 1],
+        ["Inside Out 2's new emotion", "Anxiety", "Sleepy", 1],
+        ["Oppenheimer built...", "The Bomb", "A Car", 1],
+        ["John Wick loves his...", "Dog", "Cat", 1],
+        ["Spider-Man shoots...", "Webs", "Lasers", 1],
+        ["Harry Potter is a...", "Wizard", "Muggle", 1],
+        ["Elsa's power", "Ice", "Fire", 1],
+        ["Minions love...", "Bananas", "Apples", 1],
+        ["Titanic hit a...", "Iceberg", "Rock", 1],
+        ["Thanos snaps his...", "Fingers", "Toes", 1],
+        ["Mario's brother", "Luigi", "Wario", 1],
+        ["Wednesday Addams' pet", "Hand (Thing)", "Foot", 1],
+        ["Willy Wonka makes...", "Chocolate", "Burgers", 1],
+        ["Dune is full of...", "Sand", "Water", 1],
+      ];
+      const CAT_SPORTS = [
+        ["Euro 2024 Winner", "Spain", "England", 1], //
+        ["Mbappe joined...", "Real Madrid", "Barcelona", 1], //
+        ["2024 T20 World Cup", "India", "Australia", 1], //
+        ["Lewis Hamilton 2025", "Ferrari", "Mercedes", 1], //
+        ["2024 Olympics Host", "Paris", "Tokyo", 1], //
+        ["Messi plays for...", "Inter Miami", "PSG", 1],
+        ["Taylor Swift's Team", "Chiefs", "Cowboys", 1], //
+        ["Ronaldo plays in...", "Saudi Arabia", "USA", 1],
+        ["NBA 2024 Champs", "Celtics", "Lakers", 1], //
+        ["Caitlin Clark plays...", "Basketball", "Soccer", 1],
+        ["Copa America '24", "Argentina", "Brazil", 1], //
+        ["Bayer Leverkusen", "Undefeated", "Relegated", 1], //
+        ["Shohei Ohtani plays...", "Baseball", "Golf", 1],
+        ["Wimbledon '24 King", "Alcaraz", "Federer", 1], //
+        ["LeBron plays with...", "His Son", "His Dad", 1],
+      ];
+      const CAT_MATH_STATIC = [
+        ["2 + 2 x 2 = ?", "6", "8", 1], // (Viral PEMDAS trick)
+        ["Anything to the power of 0", "1", "0", 1],
+        ["The First Prime Number", "2", "1", 1],
+        ["1024 Megabytes is...", "1 Gigabyte", "1 Terabyte", 1],
+        ["Square root of 81", "9", "8", 1],
+        ["A Baker's Dozen", "13", "12", 1],
+        ["Roman Numeral 'X'", "10", "100", 1],
+        ["Which is heavier?", "1kg Steel", "1kg Feathers", 2], // (Viral logic trick: they are equal)
+        ["Binary for '2'", "10", "01", 1],
+        ["Degrees in a Triangle", "180°", "360°", 1],
+        ["-5 multiplied by -5", "25", "-25", 1],
+        ["Pi starts with...", "3.14", "4.13", 1],
+        ["50% of 50", "25", "100", 1],
+        ["Right Angle is...", "90°", "45°", 1],
+        ["Odd Number", "37", "42", 1],
+      ];
+      const CAT_ANIME = [
+        ["Luffy wants to be...", "Pirate King", "Hokage", 1],
+        ["Naruto's favorite food", "Ramen", "Sushi", 1],
+        ["Goku is a...", "Saiyan", "Human", 1],
+        ["Pikachu's Type", "Electric", "Fire", 1],
+        ["Saitama is the...", "One Punch Man", "No Punch Man", 1],
+        ["Tanjiro fights...", "Demons", "Aliens", 1],
+        ["Attack on Titan enemy", "Titans", "Zombies", 1],
+        ["Light Yagami finds...", "Death Note", "Dragon Ball", 1],
+        ["Gojo Satoru's eyes", "Blue", "Red", 1],
+        ["Sailor Moon says...", "Punish you", "Bless you", 1],
+        ["Totoro is a...", "Spirit", "Robot", 1],
+        ["Zoro uses...", "3 Swords", "1 Sword", 1],
+        ["Deku's hero name", "Deku", "All Might", 1],
+        ["Anya Forger likes...", "Peanuts", "Carrots", 1],
+        ["Eren Yeager is a...", "Titan", "Ghoul", 1],
+      ];
+
+      function generateMath() {
         const isAdd = Math.random() > 0.5;
-        const n1 = Math.floor(Math.random()*50)+1, n2 = Math.floor(Math.random()*50)+1;
-        const cor = isAdd ? n1+n2 : n1-n2;
-        const wrong = cor + (Math.random()>0.5?1:-1) * Math.floor(Math.random()*5+1);
-        const left = Math.random()>0.5;
-        return {cat:'MATH', q:`${n1} ${isAdd?'+':'-'} ${n2} = ?`, o1:left?cor:wrong, o2:left?wrong:cor, ans:left?1:2};
-    }
+        const n1 = Math.floor(Math.random() * 50) + 1,
+          n2 = Math.floor(Math.random() * 50) + 1;
+        const cor = isAdd ? n1 + n2 : n1 - n2;
+        const wrong =
+          cor +
+          (Math.random() > 0.5 ? 1 : -1) * Math.floor(Math.random() * 5 + 1);
+        const left = Math.random() > 0.5;
+        return {
+          cat: "MATH",
+          q: `${n1} ${isAdd ? "+" : "-"} ${n2} = ?`,
+          o1: left ? cor : wrong,
+          o2: left ? wrong : cor,
+          ans: left ? 1 : 2,
+        };
+      }
 
-    function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+      function shuffle(arr) {
+        return arr.sort(() => Math.random() - 0.5);
+      }
 
-    document.addEventListener('keydown', (e) => {
-        if(!isGameRunning) return;
-        if(e.key === "ArrowLeft") handleInput(1);
-        if(e.key === "ArrowRight") handleInput(2);
-    });
+      document.addEventListener("keydown", (e) => {
+        if (!isGameRunning) return;
+        if (e.key === "ArrowLeft") handleInput(1);
+        if (e.key === "ArrowRight") handleInput(2);
+      });
 
-    function startGame() {
-        if(audioCtx.state === 'suspended') audioCtx.resume();
-        let pool = [...prepareData(CAT_POLITICS, "POLITICS"), ...prepareData(CAT_GEO, "GEO"), ...prepareData(CAT_FILM, "FILM"), ...prepareData(CAT_SPORTS, "SPORTS"), ...prepareData(CAT_MATH_STATIC, "MATH")];
-        gameQueue = shuffle(pool); 
-        while(gameQueue.length < 100) gameQueue.push(generateMath());
+      function startGame() {
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        let pool = [
+          ...prepareData(CAT_POLITICS, "POLITICS"),
+          ...prepareData(CAT_GEO, "GEO"),
+          ...prepareData(CAT_FILM, "FILM"),
+          ...prepareData(CAT_SPORTS, "SPORTS"),
+          ...prepareData(CAT_MATH_STATIC, "MATH"),
+          ...prepareData(CAT_ANIME, "ANIME"),
+        ];
+        gameQueue = shuffle(pool);
+        while (gameQueue.length < 100) gameQueue.push(generateMath());
         lives = MAX_LIVES;
         currentIdx = 0;
         isGameRunning = true;
         updateHearts();
         toggleEmojis(false);
-        els.screens.start.classList.add('hidden');
-        els.screens.over.classList.add('hidden');
-        els.screens.leader.classList.add('hidden');
-        els.screens.win.classList.add('hidden');
+        els.screens.start.classList.add("hidden");
+        els.screens.over.classList.add("hidden");
+        els.screens.leader.classList.add("hidden");
+        els.screens.win.classList.add("hidden");
         loadLevel();
-    }
+      }
 
-    function resetGame() {
+      function resetGame() {
         toggleEmojis(true);
-        els.screens.over.classList.add('hidden');
-        els.screens.win.classList.add('hidden');
-        els.screens.start.classList.remove('hidden');
+        els.screens.over.classList.add("hidden");
+        els.screens.win.classList.add("hidden");
+        els.screens.start.classList.remove("hidden");
         isGameRunning = false;
-    }
+      }
 
-    function loadLevel() {
-        if(!isGameRunning) return;
+      function loadLevel() {
+        if (!isGameRunning) return;
         const d = gameQueue[currentIdx];
         els.lvl.innerText = `Lvl ${currentIdx + 1}`;
         els.cat.innerText = d.cat;
-        const icon = CAT_ICONS[d.cat] || '';
+        const icon = CAT_ICONS[d.cat] || "";
         els.q.innerText = `${icon} ${d.q}`;
         els.l.innerText = d.o1;
         els.r.innerText = d.o2;
-        els.stage.classList.remove('shake-screen');
+        els.stage.classList.remove("shake-screen");
         const hue = Math.floor(Math.random() * 360);
-        document.documentElement.style.setProperty('--left-color', `hsl(${hue}, 70%, 60%)`);
-        document.documentElement.style.setProperty('--right-color', `hsl(${hue+180}, 70%, 60%)`);
+        document.documentElement.style.setProperty(
+          "--left-color",
+          `hsl(${hue}, 70%, 60%)`
+        );
+        document.documentElement.style.setProperty(
+          "--right-color",
+          `hsl(${hue + 180}, 70%, 60%)`
+        );
         els.cat.style.backgroundColor = `hsl(${hue}, 80%, 50%)`;
         startTimer();
-    }
+      }
 
-    function startTimer() {
-        if(timerInterval) clearInterval(timerInterval);
+      function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
         timeLeft = TIME_LIMIT_MS;
-        els.time.style.width = '100%';
-        els.time.style.background = '#2ed573';
+        els.time.style.width = "100%";
+        els.time.style.background = "#2ed573";
         timerInterval = setInterval(() => {
-            if(!isGameRunning) return clearInterval(timerInterval);
-            timeLeft -= 50;
-            const pct = (timeLeft / TIME_LIMIT_MS) * 100;
-            els.time.style.width = pct + '%';
-            if(timeLeft < 3000 && timeLeft % 1000 < 50) SoundFX.tick();
-            if(pct < 30) els.time.style.background = '#ff4757';
-            if(timeLeft <= 0) takeDamage("Time's Up!"); 
+          if (!isGameRunning) return clearInterval(timerInterval);
+          timeLeft -= 50;
+          const pct = (timeLeft / TIME_LIMIT_MS) * 100;
+          els.time.style.width = pct + "%";
+          if (timeLeft < 3000 && timeLeft % 1000 < 50) SoundFX.tick();
+          if (pct < 30) els.time.style.background = "#ff4757";
+          if (timeLeft <= 0) takeDamage("Time's Up!");
         }, 50);
-    }
+      }
 
-    function handleInput(choice) {
-        if(!isGameRunning) return;
+      function handleInput(choice) {
+        if (!isGameRunning) return;
         const d = gameQueue[currentIdx];
-        if(choice === d.ans) {
-            SoundFX.correct();
-            currentIdx++;
-            if(currentIdx >= 100) winGame();
-            else loadLevel();
+        if (choice === d.ans) {
+          SoundFX.correct();
+          currentIdx++;
+          if (currentIdx >= 100) winGame();
+          else loadLevel();
         } else {
-            takeDamage("Wrong Choice!");
+          takeDamage("Wrong Choice!");
         }
-    }
+      }
 
-    function takeDamage(reason) {
+      function takeDamage(reason) {
         lives--;
         SoundFX.wrong();
         updateHearts();
-        els.stage.classList.add('shake-screen');
-        if(lives <= 0) gameOver("Out of Lives");
+        els.stage.classList.add("shake-screen");
+        if (lives <= 0) gameOver("Out of Lives");
         else {
-            currentIdx++;
-            setTimeout(loadLevel, 400); 
+          currentIdx++;
+          setTimeout(loadLevel, 400);
         }
-    }
+      }
 
-    function updateHearts() {
+      function updateHearts() {
         let h = "";
-        for(let i=0; i<MAX_LIVES; i++) h += (i < lives) ? "❤️" : "🖤";
+        for (let i = 0; i < MAX_LIVES; i++) h += i < lives ? "❤️" : "🖤";
         els.hearts.innerText = h;
-    }
+      }
 
-    function gameOver(reason) {
+      function gameOver(reason) {
         isGameRunning = false;
         clearInterval(timerInterval);
         toggleEmojis(true);
         els.reason.innerText = reason;
         els.score.innerText = currentIdx;
         checkHighScore(currentIdx);
-        setTimeout(() => els.screens.over.classList.remove('hidden'), 500);
-    }
+        setTimeout(() => els.screens.over.classList.remove("hidden"), 500);
+      }
 
-    function winGame() {
+      function winGame() {
         isGameRunning = false;
         clearInterval(timerInterval);
         toggleEmojis(true);
         checkHighScore(100);
-        els.screens.win.classList.remove('hidden');
-    }
+        els.screens.win.classList.remove("hidden");
+      }
 
-    function shareSocial(platform) {
+      function shareSocial(platform) {
         const url = window.location.href;
         const text = `I reached Level ${currentIdx} in Battle of Brains! 🏆 Can you beat me?`;
         const encodedText = encodeURIComponent(text);
         const encodedUrl = encodeURIComponent(url);
-        if (platform === 'wa') window.open(`https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`, '_blank');
-        else if (platform === 'tw') window.open(`https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`, '_blank');
-        else if (platform === 'cp') {
-            if(navigator.clipboard) { navigator.clipboard.writeText(`${text} ${url}`); alert("Copied to clipboard!"); }
-            else alert("Manual Copy: " + url);
+        if (platform === "wa")
+          window.open(
+            `https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`,
+            "_blank"
+          );
+        else if (platform === "tw")
+          window.open(
+            `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
+            "_blank"
+          );
+        else if (platform === "cp") {
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(`${text} ${url}`);
+            alert("Copied to clipboard!");
+          } else alert("Manual Copy: " + url);
         }
-    }
+      }
 
-    function checkHighScore(score) {
-        if(score === 0) return;
-        let scores = JSON.parse(localStorage.getItem('blitzScores')) || [];
-        scores.sort((a,b)=>b.s-a.s);
-        if(scores.length < 5 || score > scores[scores.length-1].s) {
-            setTimeout(() => {
-                let name = prompt("NEW HIGH SCORE! Name:");
-                if(!name) return;
-                scores.push({n:name.substring(0,8), s:score});
-                scores.sort((a,b)=>b.s-a.s);
-                localStorage.setItem('blitzScores', JSON.stringify(scores.slice(0,5)));
-            }, 500);
+      function checkHighScore(score) {
+        if (score === 0) return;
+        let scores = JSON.parse(localStorage.getItem("blitzScores")) || [];
+        scores.sort((a, b) => b.s - a.s);
+        if (scores.length < 5 || score > scores[scores.length - 1].s) {
+          setTimeout(() => {
+            let name = prompt("NEW HIGH SCORE! Name:");
+            if (!name) return;
+            scores.push({ n: name.substring(0, 8), s: score });
+            scores.sort((a, b) => b.s - a.s);
+            localStorage.setItem(
+              "blitzScores",
+              JSON.stringify(scores.slice(0, 5))
+            );
+          }, 500);
         }
-    }
+      }
 
-    function showLeaderboard(from) {
-        if(from === 'start') previousScreen = els.screens.start;
-        if(from === 'over') previousScreen = els.screens.over;
-        previousScreen.classList.add('hidden');
-        els.screens.leader.classList.remove('hidden');
-        let scores = JSON.parse(localStorage.getItem('blitzScores')) || [];
+      function showLeaderboard(from) {
+        if (from === "start") previousScreen = els.screens.start;
+        if (from === "over") previousScreen = els.screens.over;
+        previousScreen.classList.add("hidden");
+        els.screens.leader.classList.remove("hidden");
+        let scores = JSON.parse(localStorage.getItem("blitzScores")) || [];
         let html = `<table><tr><th>Name</th><th style="text-align:right">Score</th></tr>`;
-        scores.forEach(s => html += `<tr><td>${s.n}</td><td style="text-align:right;color:#4ecdc4">${s.s}</td></tr>`);
+        scores.forEach(
+          (s) =>
+            (html += `<tr><td>${s.n}</td><td style="text-align:right;color:#4ecdc4">${s.s}</td></tr>`)
+        );
         html += `</table>`;
-        if(scores.length === 0) html = "<p>No scores yet.</p>";
-        document.querySelector('.leaderboard-container').innerHTML = html;
-    }
+        if (scores.length === 0) html = "<p>No scores yet.</p>";
+        document.querySelector(".leaderboard-container").innerHTML = html;
+      }
 
-    function closeLeaderboard() {
-        els.screens.leader.classList.add('hidden');
-        if(previousScreen) previousScreen.classList.remove('hidden');
-    }
-</script>
-</body>
+      function closeLeaderboard() {
+        els.screens.leader.classList.add("hidden");
+        if (previousScreen) previousScreen.classList.remove("hidden");
+      }
+    </script>
+  </body>
 </html>
