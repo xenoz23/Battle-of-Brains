@@ -1,10 +1,11 @@
-# Battle-of-Brains
+````markdown
+# 🧠 Battle of Brains
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
-> **100 Levels. 10 Seconds. Two Choices. One Wrong Move and You're TRASHED.**
+> **100 Levels. 10 Seconds. 3 Lives. Can you survive the viral trends of 2025?**
 
-Binary Blitz is a fast-paced, mobile-first browser game built entirely with Vanilla JavaScript. Test your knowledge across Mathematics, Geography, Pop Culture, and Logic under extreme time pressure.
+**Battle of Brains** is a high-octane, mobile-first arcade game built entirely with Vanilla JavaScript. Test your reflexes and knowledge across **Viral Politics, Anime, Sports, Pop Culture, and Rapid Math** under extreme time pressure.
 
 ## 🎮 Play Now
 **[👉 CLICK HERE TO PLAY THE GAME 👈](https://xenoz23.github.io/Battle-of-Brains/)**
@@ -13,52 +14,73 @@ Binary Blitz is a fast-paced, mobile-first browser game built entirely with Vani
 
 ## ✨ Key Features
 
-* **📱 Mobile-First Design:** Optimized touch controls (`touch-action: manipulation`) and responsive layout that stacks perfectly on phones.
-* **🔊 Custom Audio Engine:** No external MP3 files! All sound effects (dings, buzzers, victory fanfare) are generated in real-time using the **Web Audio API**.
-* **🎲 Procedural Generation:** Features a mix of hand-crafted trivia and procedurally generated math problems, ensuring a unique experience every run.
-* **🎨 Dynamic UI:** Smooth CSS3 animations, "trash" physics when you lose, and a particle confetti engine for the victory screen.
-* **⚡ Zero Dependencies:** Built with pure HTML, CSS, and JS. No frameworks, no libraries, lightweight and instant load times.
+* **❤️ Arcade Mode:** You now have **3 Lives**! One mistake doesn't end the run immediately, making gameplay less frustrating and more addictive.
+* **📱 Mobile-Perfect Design:**
+    * **Vertical Stack** for mobile (easy thumb tapping).
+    * **Horizontal Split** for desktop.
+    * **Touch Optimization** (no double-tap zooming).
+* **🔥 Viral 2025 Content:** Questions are updated with the latest trends (US Elections 2024/25, Anime hits like One Piece & Demon Slayer, Viral Math tricks).
+* **🏆 Local Leaderboard:** Saves your top 5 high scores directly to your device using LocalStorage.
+* **📤 Social Sharing:** Built-in buttons to instantly share your score via **WhatsApp**, **X (Twitter)**, or Copy Link.
+* **🎨 Alive UI:** Features a dynamic animated gradient background with floating category emojis (⚽ 🎬 🌍 🧮) that react to game states.
+* **🔊 Audio Engine:** Custom synthesized sound effects (Web Audio API) for correct/wrong answers, ticking timer, and victory fanfare—no external assets required.
 
 ## 🕹️ How to Play
 
-1.  **Start:** Click 'Play' to initialize the audio engine.
-2.  **Solve:** Read the question at the top (e.g., "Capital of France?").
-3.  **Choose:** Tap the correct option (Top or Bottom on mobile, Left or Right on desktop).
-4.  **Survive:** You have **10 seconds** per level.
-5.  **Win:** Clear all 100 levels to achieve **GODLIKE** rank.
+1. **Start:** Tap 'Play Game'.
+2. **Read:** A question appears with a visual emoji cue (e.g., 🎬 for Film).
+3. **Decide:** Tap **Option A** or **Option B** before the 10-second timer runs out.
+    * *Desktop:* Use **Left** and **Right** Arrow keys!
+    * *Mobile:* Tap the **Top** or **Bottom** colored buttons.
+4. **Survive:** Lose all 3 hearts? **Game Over.**
+5. **Win:** Clear all 100 levels to achieve **GODLIKE** rank.
 
 ## 📸 Screenshots
 
-| Start Screen | Gameplay | Victory |
+| Start Screen | Gameplay | Victory & Leaderboard |
 |:---:|:---:|:---:|
-| <img src="https://via.placeholder.com/200x400?text=Start" width="200"> | <img src="https://via.placeholder.com/200x400?text=Gameplay" width="200"> | <img src="https://via.placeholder.com/200x400?text=Victory" width="200"> |
+| <img src="https://via.placeholder.com/200x400?text=Start+Menu" width="200"> | <img src="https://via.placeholder.com/200x400?text=Gameplay" width="200"> | <img src="https://via.placeholder.com/200x400?text=Leaderboard" width="200"> |
 
-*(Note: Replace the placeholder links above with actual screenshots of your game for a better portfolio look!)*
+*(Tip: Take screenshots of your game on your phone and upload them to the repository to replace these placeholders!)*
 
 ## 🛠️ Installation & Local Development
 
 Since this project is a single file, running it locally is incredibly simple.
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://xenoz23.github.io/Battle-of-Brains/
-    ```
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/xenoz23/Battle-of-Brains.git](https://github.com/xenoz23/Battle-of-Brains.git)
+````
+
 2.  **Navigate to the folder:**
     ```bash
-    cd [REPO_NAME]
+    cd Battle-of-Brains
     ```
 3.  **Run:**
     Simply open `index.html` in your favorite web browser (Chrome, Edge, Firefox, Safari).
 
 ## 🚀 Roadmap
-* [x] Add Sound Effects
-* [x] Mobile Optimization
-* [x] Victory Confetti
-* [ ] Add "High Score" LocalStorage save
-* [ ] Dark/Light Mode Toggle
+
+  * [x] **Core:** Game Loop & Timer
+  * [x] **Audio:** Web Audio API Sound Effects
+  * [x] **Design:** Responsive Mobile/Desktop Layouts
+  * [x] **Content:** Viral 2025 Data Sets (Politics, Anime, Sports)
+  * [x] **Features:** 3 Lives System & High Score Leaderboard
+  * [x] **Social:** Share Buttons & Creator Credits
+  * [ ] **Future:** Global Online Leaderboard (Firebase/Supabase)
+  * [ ] **Future:** Dark/Light Mode Toggle
 
 ## 🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/[YOUR_USERNAME]/[REPO_NAME]/issues).
+
+Contributions, issues, and feature requests are welcome\! Feel free to check the [issues page](https://www.google.com/search?q=https://github.com/xenoz23/Battle-of-Brains/issues).
 
 ## 📝 License
+
 This project is [MIT](https://choosealicense.com/licenses/mit/) licensed.
+
+-----
+
+*Made with ❤️ by [Narayan](https://www.google.com/search?q=https://instagram.com/bruh_mask)*
+
+```
+```
