@@ -40,7 +40,6 @@
 |:---:|:---:|:---:|
 | <img src="https://via.placeholder.com/200x400?text=Start+Menu" width="200"> | <img src="https://via.placeholder.com/200x400?text=Gameplay" width="200"> | <img src="https://via.placeholder.com/200x400?text=Leaderboard" width="200"> |
 
-*(Tip: Take screenshots of your game on your phone and upload them to the repository to replace these placeholders!)*
 
 ## 🛠️ Installation & Local Development
 
@@ -49,3 +48,34 @@ Since this project is a single file, running it locally is incredibly simple.
 1. **Clone the repository:**
    ```bash
    git clone [https://github.com/xenoz23/Battle-of-Brains.git](https://github.com/xenoz23/Battle-of-Brains.git)
+   ```
+2. **Navigate to the folder:**
+```bash
+cd Battle-of-Brains
+```
+3.**Run**: Simply open index.html in your favorite web browser (Chrome, Edge, Firefox, Safari).
+
+🚀 Roadmap
+[x] Core: Game Loop & Timer
+
+[x] Audio: Web Audio API Sound Effects
+
+[x] Design: Responsive Mobile/Desktop Layouts
+
+[x] Content: Viral 2025 Data Sets (Politics, Anime, Sports)
+
+[x] Features: 3 Lives System & High Score Leaderboard
+
+[x] Social: Share Buttons & Creator Credits
+
+[ ] Future: Global Online Leaderboard (Firebase/Supabase)
+
+[ ] Future: Dark/Light Mode Toggle
+
+🤝 Contributing
+Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
+
+📝 License
+This project is MIT licensed.
+
+Made with ❤️ by Narayan
