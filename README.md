@@ -66,8 +66,6 @@ https://xenoz23.github.io/Battle-of-Brains/
 |--------------|----------|-------------|
 | ![](https://via.placeholder.com/200x400?text=Start) | ![](https://via.placeholder.com/200x400?text=Game) | ![](https://via.placeholder.com/200x400?text=Scores) |
 
-*(Replace with real screenshots later)*
-
 ---
 
 ## 🛠 Installation (Local Run)
@@ -128,9 +126,3 @@ MIT License – Free to use and modify.
 ## 👑 Creator
 
 Made with ❤️ by **Narayan**
-
-```
-
-
-Just tell me 🔥
-```
