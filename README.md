@@ -1,4 +1,3 @@
-````markdown
 # 🧠 Battle of Brains
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
@@ -50,37 +49,3 @@ Since this project is a single file, running it locally is incredibly simple.
 1. **Clone the repository:**
    ```bash
    git clone [https://github.com/xenoz23/Battle-of-Brains.git](https://github.com/xenoz23/Battle-of-Brains.git)
-````
-
-2.  **Navigate to the folder:**
-    ```bash
-    cd Battle-of-Brains
-    ```
-3.  **Run:**
-    Simply open `index.html` in your favorite web browser (Chrome, Edge, Firefox, Safari).
-
-## 🚀 Roadmap
-
-  * [x] **Core:** Game Loop & Timer
-  * [x] **Audio:** Web Audio API Sound Effects
-  * [x] **Design:** Responsive Mobile/Desktop Layouts
-  * [x] **Content:** Viral 2025 Data Sets (Politics, Anime, Sports)
-  * [x] **Features:** 3 Lives System & High Score Leaderboard
-  * [x] **Social:** Share Buttons & Creator Credits
-  * [ ] **Future:** Global Online Leaderboard (Firebase/Supabase)
-  * [ ] **Future:** Dark/Light Mode Toggle
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome\! Feel free to check the [issues page](https://www.google.com/search?q=https://github.com/xenoz23/Battle-of-Brains/issues).
-
-## 📝 License
-
-This project is [MIT](https://choosealicense.com/licenses/mit/) licensed.
-
------
-
-*Made with ❤️ by [Narayan](https://www.google.com/search?q=https://instagram.com/bruh_mask)*
-
-```
-```
